@@ -1,0 +1,228 @@
+{% extends 'portfoy_app/base.html' %}
+{% load static %}
+{% block title %} Kişisel Portföyüm {% endblock %}
+{% block content %}
+
+<section id="giris" class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <p class="hero-eyebrow text-primary-emphasis mb-3">
+                    Kişisel Portföyüm
+                </p>
+
+                <h1 class="display-3 fw-bold mb-4">
+                    Merhaba, ben<br>
+                    Hasan Berat<span class="text-primary">.</span>
+                </h1>
+
+                <p class="lead text-body-secondary mb-4">
+                    Yazılım geliştirmeyi öğreniyor, öğrendiklerimi projeler üreterek pekiştiriyorum. Burada
+                    çalışmalarımı ve gelişim yolculuğumu paylaşıyorum.
+                </p>
+
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <a href="#projeler" class="btn btn-primary btn-lg">
+                        Projelerimi incele
+                    </a>
+
+                    <a href="#iletisim" class="btn btn-outline-light btn-lg">
+                        Bana ulaş
+                    </a>
+
+                    {% if profile.cv %}
+                    <a href="{{ profile.cv.url }}" class="btn btn-outline-light btn-lg" download>
+                        CV'yi indir
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Hakkımda Yapısı -->
+
+<section id="hakkimda" class="container">
+    <div class="border-top py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="fs-2 fw-bold mb-3">Hakkımda</h2>
+
+
+                <p class="text-body-secondary lh-lg mb-4">
+                    {{ profile.bio }}
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                    {% for skill in skills %}
+                    <span class="d-inline-flex align-items-center gap-2 rounded-pill border px-3 py-2">
+                        {% if skill.icon %}
+                        <img src="{{ skill.icon.url }}" alt="" width="24" height="24" class="object-fit-contain"
+                            loading="lazy">
+                        {% endif %}
+
+                        {{ skill.name }}
+                    </span>
+                    {% empty %}
+                    <p class="text-body-secondary">Henüz yetenek eklenmedi.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+</section>
+
+<!-- Projeler Yapısı -->
+
+
+<section id="projeler" class="container">
+    <div class="border-top py-5">
+        <h2 class="fs-2 fw-bold mb-4">Projeler</h2>
+        <p class="text-body-secondary lh-lg mb-4">
+            Farklı teknolojilerle geliştirdiğim uygulamalar ve teknik çalışmalar.
+        </p>
+        <div class="projects-track" tabindex="0" role="region" aria-label="Yatay kaydırılabilir projeler">
+            {% for project in projects %}
+            <div class="project-item">
+                <article class="card h-100">
+
+                    <div class="ratio ratio-16x9 bg-body-tertiary rounded-top overflow-hidden">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }} projesinin ekran görüntüsü"
+                            class="w-100 h-100 object-fit-cover" loading="lazy">
+                        {% else %}
+                        <div class="d-flex align-items-center justify-content-center text-body-secondary">
+                            Henüz görsel eklenmedi
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h3 class="h5 fw-bold">{{ project.title }}</h3>
+
+                        <p class="card-text text-body-secondary">
+                            {{ project.short_description }}
+                        </p>
+
+                        <button type="button" class="btn btn-outline-primary mt-auto align-self-start"
+                            data-bs-toggle="modal" data-bs-target="#projeModal-{{ project.pk }}">
+                            Detayları gör
+                        </button>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <p class="text-body-secondary">Henüz proje eklenmedi.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Proje Detayları Penceresi-->
+
+{% for project in projects %}
+<div class="modal fade" id="projeModal-{{ project.pk }}" tabindex="-1" aria-labelledby="projeBaslik-{{ project.pk }}"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="projeBaslik-{{ project.pk }}">
+                    {{ project.title }}
+                </h2>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Pencereyi kapat">
+                </button>
+            </div>
+
+            <div class="modal-body p-4">
+                <div class="ratio ratio-16x9 bg-body-tertiary rounded-top overflow-hidden">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }} projesinin ekran görüntüsü"
+                        class="w-100 h-100 object-fit-cover" loading="lazy">
+                    {% else %}
+                    <div class="d-flex align-items-center justify-content-center text-body-secondary">
+                        Henüz görsel eklenmedi
+                    </div>
+                    {% endif %}
+                </div>
+
+                <h3 class="h5">Proje hakkında</h3>
+                <p class="text-body-secondary lh-lg">
+                    {{ project.description|linebreaksbr }}
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Kapat
+                </button>
+
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" class="btn btn-outline-light" target="_blank"
+                    rel="noopener noreferrer">
+                    GitHub’da incele ↗
+                </a>
+                {% endif %}
+
+                {% if project.demo_url %}
+                <a href="{{ project.demo_url }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Canlı demo ↗
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- İletişim Yapısı -->
+
+<section id="iletisim" class="container">
+    <div class="border-top py-5">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <h2 class="fs-2 fw-bold mb-3">
+                    İletişime geçelim.
+                </h2>
+
+                <p class="text-body-secondary lh-lg mb-4">
+                    Projelerim hakkında konuşmak, önerilerini paylaşmak veya tanışmak için bana e-posta ya da LinkedIn
+                    üzerinden ulaşabilirsin.
+                </p>
+
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    {% if profile.email %}
+                    <a href="mailto:{{ profile.email }}" class="btn btn-primary px-4">
+                        E-posta gönder
+                    </a>
+                    {% endif %}
+
+                    {% if profile.github_url %}
+                    <a href="{{ profile.github_url }}" class="btn btn-outline-light" target="_blank"
+                        rel="noopener noreferrer">
+                        GitHub ↗
+                    </a>
+                    {% endif %}
+
+                    {% if profile.linkedin_url %}
+                    <a href="{{ profile.linkedin_url }}" class="btn btn-outline-light" target="_blank"
+                        rel="noopener noreferrer">
+                        LinkedIn ↗
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'portfoy_app/projects.js' %}" defer></script>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+body {
+    --bs-body-bg: #14171c;
+    --bs-body-color: #edf0f4;
+    --bs-secondary-color: #a8b0bc;
+    --bs-border-color: #2b313a;
+}
+
+
+.hero-section {
+    padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+.hero-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+section[id] {
+    scroll-margin-top: 6rem;
+}
+
+.projects-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: #64748b #20252d;
+}
+
+.project-item {
+    flex: 0 0 85%;
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.projects-track:focus-visible {
+    outline: 2px solid #6ea8fe;
+    outline-offset: 4px;
+}
+
+.projects-track::-webkit-scrollbar {
+    display: none;
+}
+
+.projects-track.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+.projects-track {
+    cursor: grab;
+    scrollbar-width: none;
+}
+
+/* Orta ekran: iki kart */
+@media (min-width: 768px) {
+    .project-item {
+        flex-basis: calc((100% - 1.5rem) / 2);
+    }
+}
+
+/* Büyük ekran: üç kart */
+@media (min-width: 992px) {
+    .project-item {
+        flex-basis: calc((100% - 3rem) / 3);
+    }
+}
