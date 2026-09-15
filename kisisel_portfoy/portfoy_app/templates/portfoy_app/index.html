@@ -198,7 +198,8 @@
 
                 <div class="d-flex flex-wrap align-items-center gap-3">
                     {% if profile.email %}
-                    <a href="mailto:{{ profile.email }}" class="btn btn-primary px-4">
+                    <a href="mailto:{{ profile.email }}" class="btn btn-primary px-4" id="email-contact"
+                        data-email="{{ profile.email }}" aria-describedby="email-feedback">
                         E-posta gönder
                     </a>
                     {% endif %}
@@ -218,11 +219,18 @@
                     {% endif %}
                 </div>
 
+                {% if profile.email %}
+                <p id="email-feedback" class="small text-body-secondary mt-3 mb-0" role="status" aria-live="polite"></p>
+                <input id="email-copy-fallback" type="text" class="form-control mt-2" value="{{ profile.email }}"
+                    aria-label="Kopyalanacak e-posta adresi" readonly hidden>
+                {% endif %}
+
             </div>
         </div>
     </div>
 </section>
 
 <script src="{% static 'portfoy_app/projects.js' %}" defer></script>
+<script src="{% static 'portfoy_app/contact.js' %}" defer></script>
 
 {% endblock %}
