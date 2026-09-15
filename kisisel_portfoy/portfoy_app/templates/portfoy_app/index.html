@@ -26,12 +26,12 @@
                         Projelerimi incele
                     </a>
 
-                    <a href="#iletisim" class="btn btn-outline-light btn-lg">
+                    <a href="#iletisim" class="btn btn-outline-theme btn-lg">
                         Bana ulaş
                     </a>
 
                     {% if profile.cv %}
-                    <a href="{{ profile.cv.url }}" class="btn btn-outline-light btn-lg" download>
+                    <a href="{{ profile.cv.url }}" class="btn btn-outline-theme btn-lg" download>
                         CV'yi indir
                     </a>
                     {% endif %}
@@ -162,7 +162,7 @@
                 </button>
 
                 {% if project.github_url %}
-                <a href="{{ project.github_url }}" class="btn btn-outline-light" target="_blank"
+                <a href="{{ project.github_url }}" class="btn btn-outline-theme" target="_blank"
                     rel="noopener noreferrer">
                     GitHub’da incele ↗
                 </a>
@@ -205,14 +205,14 @@
                     {% endif %}
 
                     {% if profile.github_url %}
-                    <a href="{{ profile.github_url }}" class="btn btn-outline-light" target="_blank"
+                    <a href="{{ profile.github_url }}" class="btn btn-outline-theme" target="_blank"
                         rel="noopener noreferrer">
                         GitHub ↗
                     </a>
                     {% endif %}
 
                     {% if profile.linkedin_url %}
-                    <a href="{{ profile.linkedin_url }}" class="btn btn-outline-light" target="_blank"
+                    <a href="{{ profile.linkedin_url }}" class="btn btn-outline-theme" target="_blank"
                         rel="noopener noreferrer">
                         LinkedIn ↗
                     </a>

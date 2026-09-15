@@ -1,10 +1,47 @@
-body {
+:root[data-bs-theme="dark"] {
     --bs-body-bg: #14171c;
+    --bs-body-bg-rgb: 20, 23, 28;
     --bs-body-color: #edf0f4;
+    --bs-body-color-rgb: 237, 240, 244;
     --bs-secondary-color: #a8b0bc;
     --bs-border-color: #2b313a;
 }
 
+:root[data-bs-theme="light"] {
+    --bs-body-bg: #f7f9fc;
+    --bs-body-bg-rgb: 247, 249, 252;
+    --bs-body-color: #172235;
+    --bs-body-color-rgb: 23, 34, 53;
+    --bs-secondary-color: #536174;
+    --bs-border-color: #d9e1ec;
+}
+
+.btn-outline-theme {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-border-color: var(--bs-body-color);
+    --bs-btn-hover-color: var(--bs-body-bg);
+    --bs-btn-hover-bg: var(--bs-body-color);
+    --bs-btn-hover-border-color: var(--bs-body-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-body-color);
+    --bs-btn-active-border-color: var(--bs-body-color);
+    --bs-btn-focus-shadow-rgb: var(--bs-body-color-rgb);
+}
+
+.theme-toggle:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    min-width: 44px;
+    border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .theme-icon-moon,
+[data-bs-theme="light"] .theme-icon-sun {
+    display: none;
+}
 
 .hero-section {
     padding-block: clamp(4rem, 10vw, 8rem);
@@ -28,7 +65,7 @@ section[id] {
     padding-bottom: 1rem;
     scroll-snap-type: x proximity;
     scrollbar-width: thin;
-    scrollbar-color: #64748b #20252d;
+    scrollbar-color: var(--bs-secondary-color) var(--bs-body-bg);
 }
 
 .project-item {
