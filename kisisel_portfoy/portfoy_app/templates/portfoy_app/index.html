@@ -201,6 +201,10 @@
                     <a href="mailto:{{ profile.email }}" class="btn btn-primary px-4">
                         E-posta gönder
                     </a>
+                    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ profile.email|urlencode }}"
+                        class="btn btn-outline-light" target="_blank" rel="noopener noreferrer">
+                        Gmail’de aç ↗
+                    </a>
                     {% endif %}
 
                     {% if profile.github_url %}
