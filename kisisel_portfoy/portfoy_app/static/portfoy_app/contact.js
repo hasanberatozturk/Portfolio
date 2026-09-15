@@ -11,21 +11,44 @@
     if (mobile) return;
 
     link.title = "E-posta adresini kopyala";
-    feedback.textContent = "Bilgisayarda tıklayınca e-posta adresi kopyalanır.";
+    const email = link.dataset.email;
+    let resetTimer;
+    let copying = false;
+
+    function resetLabel() {
+        link.textContent = email;
+        link.style.minWidth = "";
+    }
 
     link.addEventListener("click", async (event) => {
         if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
+        if (copying) return;
+        copying = true;
+        clearTimeout(resetTimer);
+        resetLabel();
+        feedback.classList.add("visually-hidden");
+        feedback.textContent = "";
 
         try {
-            await navigator.clipboard.writeText(link.dataset.email);
+            await navigator.clipboard.writeText(email);
             fallback.hidden = true;
-            feedback.textContent = "E-posta adresi kopyalandı. E-posta hizmetinde alıcı alanına yapıştırabilirsin.";
+            // Keep adjacent social links still while showing the confirmation.
+            link.style.minWidth = `${link.getBoundingClientRect().width}px`;
+            link.textContent = "Kopyalandı ✓";
+            feedback.textContent = "E-posta adresi kopyalandı.";
+            resetTimer = setTimeout(() => {
+                resetLabel();
+                feedback.textContent = "";
+            }, 2000);
         } catch {
-            feedback.textContent = "Otomatik kopyalama yapılamadı. Aşağıdaki seçili adresi kopyalayabilirsin.";
+            feedback.classList.remove("visually-hidden");
+            feedback.textContent = "Kopyalanamadı. Adresi aşağıdan kopyalayabilirsin.";
             fallback.hidden = false;
             fallback.focus();
             fallback.select();
+        } finally {
+            copying = false;
         }
     });
 })();
