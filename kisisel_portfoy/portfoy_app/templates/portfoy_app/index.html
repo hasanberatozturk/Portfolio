@@ -72,6 +72,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 <!-- Projeler Yapısı -->
@@ -91,7 +92,7 @@
                     <div class="ratio ratio-16x9 bg-body-tertiary rounded-top overflow-hidden">
                         {% if project.image %}
                         <img src="{{ project.image.url }}" alt="{{ project.title }} projesinin ekran görüntüsü"
-                            class="w-100 h-100 object-fit-cover" loading="lazy">
+                            class="w-100 h-100 object-fit-contain" loading="lazy">
                         {% else %}
                         <div class="d-flex align-items-center justify-content-center text-body-secondary">
                             Henüz görsel eklenmedi
@@ -142,7 +143,7 @@
                 <div class="ratio ratio-16x9 bg-body-tertiary rounded-top overflow-hidden">
                     {% if project.image %}
                     <img src="{{ project.image.url }}" alt="{{ project.title }} projesinin ekran görüntüsü"
-                        class="w-100 h-100 object-fit-cover" loading="lazy">
+                        class="w-100 h-100 object-fit-contain" loading="lazy">
                     {% else %}
                     <div class="d-flex align-items-center justify-content-center text-body-secondary">
                         Henüz görsel eklenmedi
